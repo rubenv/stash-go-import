@@ -22,6 +22,22 @@ Usage: stash-go-import
   -sshPort=7999: use SSH port
 ```
 
+# Docker image
+
+There's a docker image available: [rubenv/stash-go-import](https://registry.hub.docker.com/u/rubenv/stash-go-import/).
+
+Simply run the image and you're good to go:
+
+```
+docker run -d -p 8080:80 rubenv/stash-go-import
+```
+
+To pass extra arguments:
+
+```
+docker run -d -p 8080:80 rubenv/stash-go-import app -sshPort 8001
+```
+
 ## License
 
     (The MIT License)
