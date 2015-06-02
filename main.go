@@ -18,7 +18,7 @@ var tpl = template.Must(template.New("redirect").Parse(`<!DOCTYPE html>
 		<meta http-equiv="refresh" content="0; url=/">
 	</head>
 	<body>
-		<a href="/">Redirecting to stash soon</a>
+		<a href="/">Redirecting to Stash soon</a>
 	</body>
 </html>
 `))
