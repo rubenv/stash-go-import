@@ -54,8 +54,10 @@ func redirect(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	importPath := fmt.Sprintf("%s%s", req.Host, req.URL.Path)
-	cloneUrl := fmt.Sprintf("ssh://git@%s:%d/%s/%s.git", req.Host, *sshPort, parts[1], parts[2])
+	project := parts[1]
+	repo := parts[2]
+	importPath := fmt.Sprintf("%s/%s/%s", req.Host, project, repo)
+	cloneUrl := fmt.Sprintf("ssh://git@%s:%d/%s/%s.git", req.Host, *sshPort, project, repo)
 
 	d := &templateData{
 		ImportPath: importPath,
