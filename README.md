@@ -29,14 +29,50 @@ There's a docker image available: [rubenv/stash-go-import](https://registry.hub.
 Simply run the image and you're good to go:
 
 ```
-docker run -d -p 8080:80 rubenv/stash-go-import
+docker run -d -p 7991:80 rubenv/stash-go-import
 ```
 
 To pass extra arguments:
 
 ```
-docker run -d -p 8080:80 rubenv/stash-go-import app -sshPort 8001
+docker run -d -p 7991:80 rubenv/stash-go-import app -sshPort 8001
 ```
+
+# Configuring nginx
+
+```
+server {
+    listen 443 ssl spdy;
+    server_name git.mycompany.com;
+
+    spdy_headers_comp 7;
+
+    gzip             on;
+    gzip_min_length  1000;
+    gzip_types       text/plain application/xml text/css application/javascript application/json application/x-javascript;
+    gzip_disable     "MSIE [1-6]\.";
+
+    if ($args ~* "^go-get=1") {
+        set $condition goget;
+    }
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        if ($condition = goget) {
+            proxy_pass http://localhost:7991;
+        }
+        if ($condition != goget) {
+            proxy_pass http://localhost:7990;
+        }
+    }
+}
+```
+
+This will send any call with `?go-get=1` to `stash-go-import`, any other call
+goes to Stash. Adjust to match your local setup.
 
 ## License
 
