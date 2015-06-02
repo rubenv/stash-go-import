@@ -1,3 +1,6 @@
+// Go import path support for Atlassian Stash
+//
+// Installation and usage instructions here: https://github.com/rubenv/stash-go-import
 package main
 
 import (
