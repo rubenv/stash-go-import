@@ -35,7 +35,7 @@ docker run -d -p 7991:80 rubenv/stash-go-import
 To pass extra arguments:
 
 ```
-docker run -d -p 7991:80 rubenv/stash-go-import app -sshPort 8001
+docker run -d -p 7991:80 rubenv/stash-go-import stash-go-import -sshPort 8001
 ```
 
 # Configuring nginx
