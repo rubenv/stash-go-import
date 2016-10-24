@@ -9,7 +9,7 @@ ENV GOROOT=/usr/lib/go \
 ADD main.go /gopath/src/github.com/rubenv/stash-go-import/
 
 RUN apk add --update go && \
-    go install -v github.com/rubenv/stash-go-import && \
+    go install -ldflags '-w -s' -v github.com/rubenv/stash-go-import && \
     apk del go && \
     mv $GOPATH/bin/stash-go-import /usr/bin/ && \
     rm -rf $GOPATH && \
